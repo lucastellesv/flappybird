@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'Oswald';
+    src: url('../fonts/Oswald-Regular.ttf') format('truetype');
+}
+
+.header h1 {
+    background-color: red;
+}
+
+* {
+    font-family: 'Oswald', sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background-color: #0D262D;
+    color: #fff;
+    height: 100%;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100%;
+}
+
+.destaque {
+    border: solid 10px greenyellow;
+    color: greenyellow;
+    font-weight: bold;
+}
+
+.progress {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: 'Pixel';
+    font-size: 70px;
+}
