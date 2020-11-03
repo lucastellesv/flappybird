@@ -68,10 +68,30 @@ function Barriers(height, width, opening, space){
     }
 }
 
-const b = new Barriers(700, 1200, 200, 400);
-const gameArea = document.querySelector('[wm-flappy]');
-b.pairs.forEach(pair => gameArea.appendChild(pair.element));
+function Bird(gameLength) {
+    let flying = false;
 
-setInterval(() => {
-    b.animate()
-}, 20 );
+    this.element = newElement ('img', 'bird');
+    this.element.src = '/images/bird.png';
+
+    this.getY = () => parseInt(this.element.style.bottom.split ('px') [0]);
+    this.setY = y => this.element.style.bottom = `${y}px`;
+
+    window.onkeydown = e => flying = true;
+    window.onkeyup = e => flying = false;
+
+    this.animate = () => {
+        const newY = this.getY() + (flying ? 8 : -5);
+        const maxHeight = gameLength - this.element.clientHeight;
+
+        if(newY <=0){
+            this.setY(0);
+        } else if ( newY >= maxHeight){
+            this.setY(maxHeight);
+        } else {
+            this.setY(newY);
+        }
+    }
+    this.setY(gameLength/2);
+}
+
