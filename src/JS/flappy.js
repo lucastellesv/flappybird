@@ -40,7 +40,7 @@ function PairOfBarriers (height, opening, x) {
     this.setX(x);
 }
 
-function Barriers(height, width, opening, space){
+function Barriers(height, width, opening, space, notifyPoint){
     this.pairs = [
         new PairOfBarriers(height, opening, width),
         new PairOfBarriers(height, opening, width + space),
@@ -95,3 +95,35 @@ function Bird(gameLength) {
     this.setY(gameLength/2);
 }
 
+function Progress(){
+    this.element = newElement('span', 'progress');
+    this.updatePoints = points => {
+        this.element.innerHTML = points;
+    }
+    this.updatePoints(0);
+}
+
+function FlappyBird() {
+    let points = 0;
+
+    const gameArea = document.querySelector('[wm-flappy]');
+    const height = gameArea.clientHeight;
+    const width = gameArea.clientWidth;
+
+    const progress = new Progress();
+    const barriers = new Barriers (height, width, 200, 400, () => progress.updatePoints(++points));
+    const bird = new Bird(height);
+
+    gameArea.appendChild(progress.element);
+    gameArea.appendChild(bird.element);
+    barriers.pairs.forEach(pair => gameArea.appendChild(pair.element))
+
+    this.start = () => {
+        const timer = setInterval(() => {
+            barriers.animate();
+            bird.animate();
+        }, 20);
+    }
+}
+
+new FlappyBird().start();
